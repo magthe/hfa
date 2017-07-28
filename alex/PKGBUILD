@@ -1,0 +1,58 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=alex
+pkgver=3.2.3
+pkgrel=0.1
+pkgdesc="Alex is a tool for generating lexical analysers in Haskell"
+arch=('x86_64')
+url='https://www.haskell.org/happy'
+license=('BSD3')
+makedepends=('cabal-install' 'stack')
+depends=()
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "stack.yaml"
+        "ghc-8.0.2-settings"
+       )
+sha256sums=('1a63791417b3e6e36e8b79849317beeaf9ea09efa21bea021c2347b49266212e'
+            '77ef740d2a7c2ff1581a4e48d6fca26cbc37e3ca2d6ffa5a8e382eae969b9fb4'
+            '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  cp "${srcdir}/stack.yaml" .
+  stack update
+  stack setup
+
+  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
+  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+        exec --no-ghc-package-path cabal -- configure \
+        $(cat db-paths) \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+        exec --no-ghc-package-path cabal -- build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        exec --no-ghc-package-path cabal -- copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}

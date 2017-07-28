@@ -1,0 +1,11 @@
+resolver: lts-6.35
+
+packages:
+  - '.'
+
+extra-deps:
+  - HUnit-1.2.5.2
+
+flags: {}
+
+extra-package-dbs: []

@@ -1,0 +1,66 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+_stackver=v1.6.1
+_stackname=stack-1.6.1-linux-x86_64-static
+pkgname=stack
+pkgver=1.6.1
+pkgrel=0.1
+pkgdesc="The Haskell Tool Stack - the binary"
+arch=('x86_64')
+url='http://www.haskell.org/cabal/'
+license=('BSD3')
+makedepends=('cabal-install')
+depends=('ncurses5-compat-libs')
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
+        "ghc-8.0.2-settings"
+       )
+sha256sums=('698fb4925d2e8a1dd8fc35b95c1e823a5f278ce08754bedd6cf1653c102cc955'
+            '5f7ad6f2934561beb296d472f77034033c38a89a2ec2aeba78edcbb0034af80e'
+            '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
+
+prepare() {
+  export PATH="${srcdir}/${_stackname}:${PATH}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack update
+  stack setup
+
+  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
+  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
+}
+
+build() {
+  export PATH="${srcdir}/${_stackname}:${PATH}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+        exec --no-ghc-package-path cabal -- configure \
+        $(cat db-paths) \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+        exec --no-ghc-package-path cabal -- build
+}
+
+check() {
+  true
+}
+
+package() {
+  export PATH="${srcdir}/${_stackname}:${PATH}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        exec --no-ghc-package-path cabal -- copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+
+  install -d -m755 "${pkgdir}/etc/bash_completion.d"
+  ./dist/build/stack/stack --bash-completion-script /usr/bin/stack > stack_completion_script
+  install -m644 stack_completion_script "${pkgdir}/etc/bash_completion.d/stack"
+}

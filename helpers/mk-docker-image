@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -eu
+
+rundir="$(dirname $(readlink -f $0))"
+. ${rundir}/useful.sh
+
+image_name=magthe/hfa-builder
+with_testing=no
+
+usage() {
+    cat << EOF
+Usage: mkimage-arch.sh [options]
+
+Build the docker image for HFA.
+
+Options:
+-h          This help
+-n <name>   Docker image name (default: ${image_name})
+EOF
+}
+
+while getopts ha:n:t opt; do
+    case "${opt}" in
+        h) usage; exit 0 ;;
+        n) image_name="${OPTARG}" ;;
+    esac
+done
+
+docker build --rm -t ${image_name} docker

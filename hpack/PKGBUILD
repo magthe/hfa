@@ -1,0 +1,58 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=hpack
+pkgver=0.21.2
+pkgrel=0.1
+pkgdesc="An alternative format for Haskell packages"
+arch=('x86_64')
+url='https://github.com/sol/hpack'
+license=('BSD3')
+makedepends=('cabal-install' 'stack')
+depends=()
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "stack.yaml"
+        "ghc-8.0.2-settings"
+       )
+sha256sums=('0c547729a2b6a49dd4a2cf32b737667ab94b8745e8648b375b827c1488c83abf'
+            '77ef740d2a7c2ff1581a4e48d6fca26cbc37e3ca2d6ffa5a8e382eae969b9fb4'
+            '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  cp "${srcdir}/stack.yaml" .
+  stack update
+  stack setup
+
+  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
+  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+        exec --no-ghc-package-path cabal -- configure \
+        $(cat db-paths) \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+        exec --no-ghc-package-path cabal -- build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        exec --no-ghc-package-path cabal -- copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}

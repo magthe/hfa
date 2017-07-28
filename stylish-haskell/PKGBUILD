@@ -1,0 +1,53 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=stylish-haskell
+pkgver=0.8.1.0
+pkgrel=0.2
+pkgdesc="Haskell code prettifier"
+arch=('x86_64')
+url='http://www.haskell.org/cabal/'
+license=('BSD3')
+makedepends=('cabal-install' 'stack')
+depends=()
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "stack.yaml"
+       )
+sha256sums=('8757c7400477507f9428658650631de2c8d843ea354ead3ea2ded9fb2bbd1f23'
+            'fb4027adbecea6d3066c75ef0da4e66ca4d11ceacadceecc1f3babddbd9bab74')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  cp "${srcdir}/stack.yaml" .
+  stack update
+  stack setup
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+        exec --no-ghc-package-path cabal -- configure \
+        $(cat db-paths) \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+        exec --no-ghc-package-path cabal -- build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        exec --no-ghc-package-path cabal -- copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}

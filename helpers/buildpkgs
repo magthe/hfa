@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+set -eu
+
+rundir="$(dirname $(readlink -f $0))"
+. ${rundir}/useful.sh
+
+export LANG=C
+
+arch=$(uname -m)
+
+# default values
+work_dir=.
+clean_build_first=0
+update_pristine_first=0
+owner_uid=1000
+owner_gid=100
+
+usage() {
+    cat << EOF
+Usage: makeahpkg [options] -- [packages]
+
+Run this script in your HFA dir to build the named packages.
+
+Options:
+-h          This help
+-b <dir>    Location of your HFA dir (default .)
+-u <uid>    User ID to own the built files
+-g <gid>    Group ID to own the built files
+EOF
+exit 0
+}
+
+buildpkg() {
+    pkg=$(makepkg --package).pkg.tar.xz
+
+    msg "Check for $pkg"
+    curl -OLfs ftp://therning.org/mtrepo/${pkg} || true
+
+    if [[ ! -f ${pkg} ]]; then
+        msg "  Building"
+        sudo pacman -Sy
+        PACKAGER="ArchHaskell <arch-haskell@haskell.org>" BUILDDIR=/tmp/build-${arch} \
+                makepkg --noconfirm -s
+    else
+        msg "  Skipping"
+    fi
+
+    sudo chown ${owner_uid}:${owner_gid} ${pkg}
+    sudo cp ${pkg} /repo
+    (cd /repo; sudo repo-add repo.db.tar.gz ${pkg})
+}
+
+while getopts hb:u:g: opt; do
+    case "${opt}" in
+        h) usage; exit 0;;
+        b) work_dir="${OPTARG}";;
+        u) owner_uid=${OPTARG};;
+        g) owner_gid=${OPTARG};;
+    esac
+done
+shift $((OPTIND - 1))
+
+sudo pacman -Syu --noconfirm
+
+for pkg0 in $@; do
+    pkg=
+    pkg1=${pkg0,,}
+    [ -d ${work_dir}/${pkg1} ] && pkg=${pkg1}
+    [ -d ${work_dir}/haskell-${pkg1} ] && pkg=haskell-${pkg1}
+    if [[ "x${pkg}" != "x" ]]; then
+        (cd ${work_dir}/$pkg; buildpkg )
+    else
+        die "No such package: $pkg0"
+    fi
+    pkg=
+done

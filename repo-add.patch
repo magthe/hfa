@@ -1,0 +1,34 @@
+--- repo-add.orig	2017-10-06 19:59:54.544581819 +0200
++++ repo-add.new	2017-10-06 20:00:51.154311799 +0200
+@@ -371,7 +371,7 @@
+ 			makedepend) _makedepends+=("$makedepend") ;;
+ 			checkdepend) _checkdepends+=("$checkdepend") ;;
+ 		esac
+-	done< <(bsdtar -xOqf "$pkgfile" .PKGINFO)
++	done< <(bsdtar --no-xattr -xOqf "$pkgfile" .PKGINFO)
+ 
+ 	# ensure $pkgname and $pkgver variables were found
+ 	if [[ -z $pkgname || -z $pkgver ]]; then
+@@ -571,7 +571,7 @@
+ 			fi
+ 			verify_signature "$dbfile"
+ 			msg "$(gettext "Extracting database to a temporary location...")"
+-			bsdtar -xf "$dbfile" -C "$tmpdir/$repo"
++			bsdtar --no-xattr -xf "$dbfile" -C "$tmpdir/$repo"
+ 		else
+ 			case $cmd in
+ 				repo-remove)
+@@ -702,11 +702,11 @@
+ 
+ 		pushd "$tmpdir/$repo" >/dev/null
+ 		if ( shopt -s nullglob; files=(*); (( ${#files[*]} )) ); then
+-			bsdtar -c${TAR_OPT}f "$tempname" *
++			bsdtar --no-xattr -c${TAR_OPT}f "$tempname" *
+ 		else
+ 			# we have no packages remaining? zip up some emptyness
+ 			warning "$(gettext "No packages remain, creating empty database.")"
+-			bsdtar -c${TAR_OPT}f "$tempname" -T /dev/null
++			bsdtar --no-xattr -c${TAR_OPT}f "$tempname" -T /dev/null
+ 		fi
+ 		popd >/dev/null
+ 

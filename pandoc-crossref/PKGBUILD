@@ -1,0 +1,53 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=pandoc-crossref
+pkgver=0.2.7.0
+pkgrel=0.1
+pkgdesc="Pandoc filter for cross-references"
+arch=('x86_64')
+url='http://www.haskell.org/cabal/'
+license=('GPL2')
+makedepends=('cabal-install' 'stack')
+depends=('pandoc')
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "stack.yaml"
+       )
+sha256sums=('33c94dceb535a73462cbb86ddb778119b9344c2aa834970bd115c57345f409da'
+            '664ef2841982c7c95653e6e8e258a2c96743ed43a4b5593c5ec0085e526b0e6e')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack update
+  stack setup
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  cp "${srcdir}/stack.yaml" .
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+        exec --no-ghc-package-path cabal -- configure \
+        $(cat db-paths) \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+        exec --no-ghc-package-path cabal -- build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        exec --no-ghc-package-path cabal -- copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}

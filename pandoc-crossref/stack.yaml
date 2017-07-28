@@ -1,0 +1,12 @@
+resolver: lts-9.13
+
+packages:
+  - '.'
+
+extra-deps:
+  - roman-numerals-0.5.1.5
+  - syb-0.6
+
+flags: {}
+
+extra-package-dbs: []
