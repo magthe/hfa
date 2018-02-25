@@ -1,7 +1,7 @@
 # some useful stuff
 
 # TERM isn't set in CI
-if [[ ! -v CI_PIPELINE_ID ]]; then
+if [[ ! -v CI ]]; then
     ALL_OFF="$(tput sgr0)"
     BOLD="$(tput bold)"
     BLUE="${BOLD}$(tput setaf 4)"
