@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=stylish-haskell
-pkgver=0.8.1.0
-pkgrel=0.2
+pkgver=0.9.0.2
+pkgrel=1
 pkgdesc="Haskell code prettifier"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
@@ -13,7 +13,7 @@ options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml"
        )
-sha256sums=('8757c7400477507f9428658650631de2c8d843ea354ead3ea2ded9fb2bbd1f23'
+sha256sums=('f9975e80fbf647b73a72590d5fe6c3746d205ef640dcae631b97feb010801070'
             'fb4027adbecea6d3066c75ef0da4e66ca4d11ceacadceecc1f3babddbd9bab74')
 
 prepare() {

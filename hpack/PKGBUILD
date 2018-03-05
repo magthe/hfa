@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hpack
-pkgver=0.21.2
-pkgrel=0.1
+pkgver=0.27.0
+pkgrel=1
 pkgdesc="An alternative format for Haskell packages"
 arch=('x86_64')
 url='https://github.com/sol/hpack'
@@ -14,8 +14,8 @@ source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgn
         "stack.yaml"
         "ghc-8.0.2-settings"
        )
-sha256sums=('0c547729a2b6a49dd4a2cf32b737667ab94b8745e8648b375b827c1488c83abf'
-            '77ef740d2a7c2ff1581a4e48d6fca26cbc37e3ca2d6ffa5a8e382eae969b9fb4'
+sha256sums=('d54744d77b645eb61d9498409904fca909c6d994402e806ad3c9c65596702bef'
+            '2009d132d39917601a6eeb9e17166d9ad43a8b8e1f88d1b4875a2d76cc57cb2e'
             '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
 
 prepare() {

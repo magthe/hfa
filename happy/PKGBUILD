@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=happy
-pkgver=1.19.8
-pkgrel=0.1
+pkgver=1.19.9
+pkgrel=1
 pkgdesc="Happy is a parser generator for Haskell"
 arch=('x86_64')
 url='https://www.haskell.org/happy'
@@ -14,7 +14,7 @@ source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgn
         "stack.yaml"
         "ghc-8.0.2-settings"
        )
-sha256sums=('4df739965d559e48a9b0044fa6140241c07e8f3c794c6c0a6323024fd7f0d3a0'
+sha256sums=('3e81a3e813acca3aae52721c412cde18b7b7c71ecbacfaeaa5c2f4b35abf1d8d'
             '77ef740d2a7c2ff1581a4e48d6fca26cbc37e3ca2d6ffa5a8e382eae969b9fb4'
             '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
 

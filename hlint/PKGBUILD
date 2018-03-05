@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hlint
-pkgver=2.0.9
-pkgrel=0.2
+pkgver=2.1
+pkgrel=1
 pkgdesc="Source code suggestions"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
@@ -13,8 +13,8 @@ options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml"
        )
-sha256sums=('252993e74def5caae29a546f39ce37ce2cf2b6bcafa6cc5c867fb5d07fb4a5ad'
-            'fb4027adbecea6d3066c75ef0da4e66ca4d11ceacadceecc1f3babddbd9bab74')
+sha256sums=('e979353de45ea77142e31d83b00146f0fbc1a03ad052377c14d605081ba8908d'
+            'e9f99c09244b03419a7dd6158183269fb507d6fd2584656262c4dd1a103582e9')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
