@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc-crossref
-pkgver=0.2.7.0
-pkgrel=0.1
+pkgver=0.3.0.1
+pkgrel=1
 pkgdesc="Pandoc filter for cross-references"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
@@ -13,8 +13,8 @@ options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml"
        )
-sha256sums=('33c94dceb535a73462cbb86ddb778119b9344c2aa834970bd115c57345f409da'
-            '664ef2841982c7c95653e6e8e258a2c96743ed43a4b5593c5ec0085e526b0e6e')
+sha256sums=('d62bc57ecbf869cd5777dfc69f3d45722d3be3e691ed4e47841aa656df5c1252'
+            'bfec9e6334999c42993bb537d3ef2732935e37ee9a5e450a53ff1e8ee1406600')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"

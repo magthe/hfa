@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc
-pkgver=2.0.2
-pkgrel=0.1
+pkgver=2.1.2
+pkgrel=1
 pkgdesc="Conversion between markup formats"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
@@ -12,7 +12,7 @@ depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
        )
-sha256sums=('b79fd769939760e74dddb253d9325ee1c19899d075e458db4d22ff0b0beef9f9')
+sha256sums=('dc0b26eff61c6eed2e00927fa2c6b966ca758dea1596f3049cc70ae8b650eb65')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -48,3 +48,4 @@ package() {
 
   rm -fr "${pkgdir}/usr/lib"
 }
+
