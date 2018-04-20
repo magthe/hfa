@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hpack
-pkgver=0.27.0
+pkgver=0.28.2
 pkgrel=1
 pkgdesc="An alternative format for Haskell packages"
 arch=('x86_64')
@@ -11,12 +11,9 @@ makedepends=('cabal-install' 'stack')
 depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "stack.yaml"
-        "ghc-8.0.2-settings"
-       )
-sha256sums=('d54744d77b645eb61d9498409904fca909c6d994402e806ad3c9c65596702bef'
-            '2009d132d39917601a6eeb9e17166d9ad43a8b8e1f88d1b4875a2d76cc57cb2e'
-            '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
+        "stack.yaml")
+sha256sums=('b9601332bbac2f042947be1f7478ed0c72367e4caa211b779a75dc26cd8180a3'
+            '5a032decf248fa9263df8e5c8f81e8aeaf49342980b8b96473951db26c32cdea')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -24,9 +21,6 @@ prepare() {
   cp "${srcdir}/stack.yaml" .
   stack update
   stack setup
-
-  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
-  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
 }
 
 build() {

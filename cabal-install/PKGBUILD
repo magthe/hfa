@@ -1,9 +1,9 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
-_stackver=v1.6.1
-_stackname=stack-1.6.1-linux-x86_64-static
+_stackver=v1.6.5
+_stackname=stack-1.6.5-linux-x86_64-static
 pkgname=cabal-install
-pkgver=2.0.0.1
+pkgver=2.2.0.0
 pkgrel=0.1
 pkgdesc="The command-line interface for Cabal and Hackage."
 arch=('x86_64')
@@ -14,12 +14,10 @@ options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
         "stack.yaml"
-        "ghc-8.2.2-settings"
        )
-sha256sums=('f991e36f3adaa1c7e2f0c422a2f2a4ab21b7041c82a8896f72afc9843a0d5d99'
-            '5f7ad6f2934561beb296d472f77034033c38a89a2ec2aeba78edcbb0034af80e'
-            '8b16d62e361cf14827dfa1166b8ab28dc9d8ea1b91f71299b91aab3e1711fb0c'
-            'e0a8a673f6477b68653e5165649001f8e4e289c26c8ac618eff1409a63b95dc3')
+sha256sums=('c856a2dd93c5a7b909597c066b9f9ca27fbda1a502b3f96077b7918c0f64a3d9'
+            'f8876fa73c4bb95c1d762073af2dfa4a003d795709ec3fee2f9743ca6a5fedc6'
+            'f9eaf9ae39f51245c91c32c4f00aece317691394fec80b1ae0f4abe8d8370a0d')
 
 prepare() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
@@ -28,9 +26,6 @@ prepare() {
   cp ${srcdir}/stack.yaml .
   stack update
   stack setup
-
-  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
-  cp ${srcdir}/ghc-8.2.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.2.2/lib/ghc-8.2.2/settings
 }
 
 build() {
