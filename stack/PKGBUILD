@@ -1,24 +1,22 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
-_stackver=v1.6.5
-_stackname=stack-1.6.5-linux-x86_64-static
+_stackver=v1.7.1
+_stackname=stack-1.7.1-linux-x86_64
 pkgname=stack
-pkgver=1.6.5
+pkgver=1.7.1
 pkgrel=1
 pkgdesc="The Haskell Tool Stack - the binary"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('BSD3')
-makedepends=('cabal-install')
+makedepends=('cabal-install' 'unzip')
 depends=('ncurses5-compat-libs')
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
-        "ghc-8.0.2-settings"
        )
-sha256sums=('ee5c8ca3f9ee81d1bde3ff54ca07f902a98476f4804f0cf7002b56deed07aa38'
-            'f8876fa73c4bb95c1d762073af2dfa4a003d795709ec3fee2f9743ca6a5fedc6'
-            '0c9eabde6e281f2746789c108711d29273e3fba14148ac7676ceecee77478785')
+sha256sums=('19c4f2e02975bb797a339cfe2893c9e1f40241a910da45be34c5c2f05d62329f'
+            '647306bbf65dd0b555486e2a32776ba1cfe0c8f380e31c6aa93abd452cb209ee')
 
 prepare() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
@@ -26,9 +24,6 @@ prepare() {
 
   stack update
   stack setup
-
-  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
-  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
 }
 
 build() {
