@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc-citeproc
-pkgver=0.14.3
+pkgver=0.14.3.1
 pkgrel=1
 pkgdesc="Supports using citeproc with pandoc"
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('cabal-install' 'stack')
 depends=('pandoc')
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('7215f4e277419438f0e70b34935e3c3d16f3009bfd5f457bc6b57fd416ea47fc')
+sha256sums=('42c0b2c8365441bf884daa6202e6ed01b42181cf255406c88b3b31cd27cb467a')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
