@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hlint
-pkgver=2.1.5
+pkgver=2.1.6
 pkgrel=1
 pkgdesc="Source code suggestions"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml")
-sha256sums=('41f21566627d02f69f5715d883ebffd54e64e8f2af1d2376830b6880565a7102'
+sha256sums=('7b08ebe2ccc6b7f1957e7eb19dfc5b58f99087275a894dc0e8cd43fcd35aadeb'
             '0d03804c2239f8d98b0fdf196f0256abbe8df495f99104f2b6a67aa907331d77')
 
 prepare() {
