@@ -16,12 +16,12 @@ jobs:
 
       - run:
           name: Build packages
-          command: >
-            ./helpers/buildpkgs
-            cabal-install stack
-            pandoc pandoc-citeproc pandoc-crossref
-            hlint stylish-haskell shelltestrunner
-            hpack alex happy
+          command: |
+            ./helpers/buildpkgs \
+              cabal-install stack \
+              pandoc pandoc-citeproc pandoc-crossref \
+              hlint stylish-haskell shelltestrunner \
+              hpack alex happy
 
       - run:
           name: List repo folder
