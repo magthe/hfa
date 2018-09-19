@@ -1,10 +1,10 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
-_stackver=v1.6.5
-_stackname=stack-1.6.5-linux-x86_64-static
+_stackver=v1.7.1
+_stackname=stack-1.7.1-linux-x86_64
 pkgname=cabal-install
-pkgver=2.2.0.0
-pkgrel=0.1
+pkgver=2.4.0.0
+pkgrel=1.0
 pkgdesc="The command-line interface for Cabal and Hackage."
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
@@ -15,9 +15,9 @@ source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgn
         "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
         "stack.yaml"
        )
-sha256sums=('c856a2dd93c5a7b909597c066b9f9ca27fbda1a502b3f96077b7918c0f64a3d9'
-            'f8876fa73c4bb95c1d762073af2dfa4a003d795709ec3fee2f9743ca6a5fedc6'
-            'f9eaf9ae39f51245c91c32c4f00aece317691394fec80b1ae0f4abe8d8370a0d')
+sha256sums=('1329e9564b736b0cfba76d396204d95569f080e7c54fe355b6d9618e3aa0bef6'
+            '647306bbf65dd0b555486e2a32776ba1cfe0c8f380e31c6aa93abd452cb209ee'
+            '339b30767173b6caa045b49dc08d4d3ecbe326ee5e0b5336e310f799f6b4dc4c')
 
 prepare() {
   export PATH="${srcdir}/${_stackname}:${PATH}"

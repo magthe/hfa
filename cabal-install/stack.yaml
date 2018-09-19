@@ -1,9 +1,10 @@
-resolver: nightly-2018-04-20
+resolver: lts-12.10
 
 packages:
   - .
 
-extra-deps: []
+extra-deps:
+  - Cabal-2.4.0.1
 
 flags: {}
 

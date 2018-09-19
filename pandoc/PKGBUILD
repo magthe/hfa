@@ -1,17 +1,17 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc
-pkgver=2.2.2.1
+pkgver=2.3
 pkgrel=1
 pkgdesc="Conversion between markup formats"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('BSD3')
-makedepends=('cabal-install' 'stack' 'unzip')
+makedepends=('cabal-install' 'stack' 'unzip' 'git')
 depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('f5f4c3ccf513ddbaf8c81d56bc2ef7a5ef2533ec664ef755fc651c9f5163a6a5')
+sha256sums=('5b051a1bb7b894eefa1464ffce972df3bbd8a000286c4471fe8ca98a5806ce73')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
