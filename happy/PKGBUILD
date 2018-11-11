@@ -2,7 +2,7 @@
 
 pkgname=happy
 pkgver=1.19.9
-pkgrel=1
+pkgrel=100
 pkgdesc="Happy is a parser generator for Haskell"
 arch=('x86_64')
 url='https://www.haskell.org/happy'

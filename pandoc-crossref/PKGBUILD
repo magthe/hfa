@@ -2,7 +2,7 @@
 
 pkgname=pandoc-crossref
 pkgver=0.3.3.0
-pkgrel=1
+pkgrel=100
 pkgdesc="Pandoc filter for cross-references"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
