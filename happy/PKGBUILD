@@ -24,9 +24,6 @@ prepare() {
   cp "${srcdir}/stack.yaml" .
   stack update
   stack setup
-
-  # WTF??? see https://github.com/commercialhaskell/stack/issues/3648
-  cp ${srcdir}/ghc-8.0.2-settings ${HOME}/.stack/programs/x86_64-linux/ghc-tinfo6-nopie-8.0.2/lib/ghc-8.0.2/settings
 }
 
 build() {
