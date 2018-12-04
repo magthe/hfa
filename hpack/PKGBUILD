@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hpack
-pkgver=0.31.0
+pkgver=0.31.1
 pkgrel=100
 pkgdesc="An alternative format for Haskell packages"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml")
-sha256sums=('c9860acfbace8c94b04cf03a82248c2387073ed727a9d8260458ae2ff1070652'
+sha256sums=('ac3ab2b42339f6e3d45b89e4ee9acf33550f7fac6518b8cf47a874226b5d373a'
             '0b82a65259f97255267dc4de5ef8a8eb8f9a604eadffa221e217350f56defa28')
 
 prepare() {

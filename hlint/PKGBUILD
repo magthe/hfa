@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hlint
-pkgver=2.1.10
+pkgver=2.1.11
 pkgrel=100
 pkgdesc="Source code suggestions"
 arch=('x86_64')
@@ -10,15 +10,13 @@ license=('BSD3')
 makedepends=('cabal-install' 'stack')
 depends=()
 options=('strip' 'staticlibs')
-source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "stack.yaml")
-sha256sums=('1cc4d90ed2b696563ce1614c2a17070be2cd808c7affa782359995f352155aa5'
-            '7eb35f39fce79aa1a3e2d2642547f4701b1cbb335c5ff6cb55dd26223f65380d')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('4b590d27ec6da4670deea9de4f52c83048688073b3e6389a74da31d58e30665b')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  cp "${srcdir}/stack.yaml" .
+  stack init .
   stack update
   stack setup
 }
