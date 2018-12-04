@@ -2,7 +2,7 @@
 
 pkgname=alex
 pkgver=3.2.4
-pkgrel=1
+pkgrel=100
 pkgdesc="Alex is a tool for generating lexical analysers in Haskell"
 arch=('x86_64')
 url='https://www.haskell.org/happy'

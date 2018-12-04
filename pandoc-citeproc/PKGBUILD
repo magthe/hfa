@@ -2,7 +2,7 @@
 
 pkgname=pandoc-citeproc
 pkgver=0.14.4
-pkgrel=1
+pkgrel=100
 pkgdesc="Supports using citeproc with pandoc"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'

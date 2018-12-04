@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Fix repo-add
           command: |
-            sudo patch /usr/bin/repo-add repo-add.patch
+            sudo patch /usr/bin/repo-add helpers/repo-add.patch
 
       - run:
           name: Build packages

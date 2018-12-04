@@ -2,7 +2,7 @@
 
 pkgname=shelltestrunner
 pkgver=1.9
-pkgrel=1
+pkgrel=100
 pkgdesc="Source code suggestions"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
