@@ -61,7 +61,7 @@ while getopts hb:u:g: opt; do
 done
 shift $((OPTIND - 1))
 
-sudo pacman -Syu --noconfirm
+sudo pacman -Syyu --noconfirm
 
 for pkg0 in $@; do
     pkg=

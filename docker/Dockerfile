@@ -6,9 +6,12 @@ COPY pacman.conf /etc
 RUN   true \
     && mkdir /repo \
     && touch /repo/repo.db \
+    && mkdir /mtrepo \
+    && touch /mtrepo/mtrepo.db \
     && pacman -Sy --noconfirm \
           base-devel \
           sudo \
+    && rm /mtrepo/mtrepo.db \
     && true
 
 RUN   true \
@@ -18,3 +21,5 @@ RUN   true \
 COPY sudoers /etc
 
 USER hfa
+
+VOLUME ["/mtrepo"]
