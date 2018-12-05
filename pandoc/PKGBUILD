@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc
-pkgver=2.3
+pkgver=2.5
 pkgrel=100
 pkgdesc="Conversion between markup formats"
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('cabal-install' 'stack' 'unzip' 'git')
 depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('5b051a1bb7b894eefa1464ffce972df3bbd8a000286c4471fe8ca98a5806ce73')
+sha256sums=('d57dc5db78a0a304de70436fe59a7599ab0c6d0fb2ab6704eeae498a4536222e')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"

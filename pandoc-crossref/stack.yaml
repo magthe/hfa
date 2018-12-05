@@ -1,13 +1,15 @@
-resolver: lts-12.10
+resolver: lts-12.21
 
 packages:
   - '.'
 
 extra-deps:
-  - pandoc-2.3
-  - roman-numerals-0.5.1.5
   - HsYAML-0.1.1.2
-  - haddock-library-1.6.0
+  - haddock-library-1.7.0
+  - hslua-1.0.1
+  - hslua-module-text-0.2.0
+  - pandoc-2.4
+  - roman-numerals-0.5.1.5
 
 flags: {}
 

@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc-crossref
-pkgver=0.3.3.0
+pkgver=0.3.4.0
 pkgrel=100
 pkgdesc="Pandoc filter for cross-references"
 arch=('x86_64')
@@ -12,12 +12,13 @@ depends=('pandoc')
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "stack.yaml")
-sha256sums=('3c36ea56cb5feb167806e59e97613470f887c068dc27a9332fe91df0d183cc3e'
-            'a9aabf5bd9d3e5844068a1760e95e27c00a3e648be0650954a59f73fba0a7e92')
+sha256sums=('ff5515e76884aa0d7f9991fc22853622b185a92f940084d2d396133eddc56e97'
+            'e98bbc889b09511cbbe6103399e2570245e38454b08d5d74f022c64852348d5a')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
+  cp "${srcdir}/stack.yaml" .
   stack update
   stack setup
 }
@@ -25,7 +26,6 @@ prepare() {
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  cp "${srcdir}/stack.yaml" .
   stack build --dependencies-only
   stack \
         exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
