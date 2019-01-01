@@ -8,7 +8,7 @@ RUN   true \
     && touch /repo/repo.db \
     && mkdir /mtrepo \
     && touch /mtrepo/mtrepo.db \
-    && pacman -Sy --noconfirm \
+    && pacman -Sy --noconfirm --needed \
           base-devel \
           sudo \
     && rm /mtrepo/mtrepo.db \
