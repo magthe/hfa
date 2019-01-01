@@ -1,0 +1,11 @@
+resolver: lts-13.1
+
+packages:
+  - '.'
+
+extra-deps:
+  - haskell-src-exts-1.21.0
+
+flags: {}
+
+extra-package-dbs: []
