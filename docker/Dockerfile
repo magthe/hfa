@@ -11,6 +11,7 @@ RUN   true \
     && pacman -Sy --noconfirm --needed \
           base-devel \
           sudo \
+          bind-tools \
     && rm /mtrepo/mtrepo.db \
     && true
 
