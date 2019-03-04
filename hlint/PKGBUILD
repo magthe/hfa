@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=hlint
-pkgver=2.1.14
+pkgver=2.1.15
 pkgrel=100
 pkgdesc="Source code suggestions"
 arch=('x86_64')

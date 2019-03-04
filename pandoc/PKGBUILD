@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc
-pkgver=2.5
+pkgver=2.7
 pkgrel=100
 pkgdesc="Conversion between markup formats"
 arch=('x86_64')
