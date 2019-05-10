@@ -1,4 +1,4 @@
-FROM base/archlinux
+FROM archlinux/base:latest
 MAINTAINER Magnus Therning <magnus@therning.org>
 
 COPY pacman.conf /etc
