@@ -3,7 +3,7 @@
 _stackver=v1.9.3
 _stackname=stack-1.9.3-linux-x86_64-static
 pkgname=stack
-pkgver=1.9.3
+pkgver=1.9.3.1
 pkgrel=100
 pkgdesc="The Haskell Tool Stack - the binary"
 arch=('x86_64')
@@ -15,7 +15,7 @@ options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
        )
-sha256sums=('8e11e315f7f27f670ede9f55ab9e2a0501c15b16eb4346ff2a59b6715fca8b06'
+sha256sums=('92a2d5d0326eda939c7eb284b2a9d33ffd52a16dd31fd392877212c8f913bd53'
             'c9bf6d371b51de74f4bfd5b50965966ac57f75b0544aebb59ade22195d0b7543')
 
 prepare() {

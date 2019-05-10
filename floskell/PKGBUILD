@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=floskell
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=100
 pkgdesc="A flexible Haskell source code pretty printer"
 arch=('x86_64')
@@ -10,15 +10,11 @@ license=('BSD3')
 makedepends=('cabal-install' 'stack')
 depends=()
 options=('strip' 'staticlibs')
-source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        'stack.yaml')
-sha256sums=('5badda565b0767d834a2ac2eb4fe431ad5a6779355e9e6c95974bdf70c0da67f'
-            '5d3616354548db998d3aefa622f5d31d32f1840fddfeb00704fc08f9bc3a7df8')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('d4b80e19a7e08487a17ebfbc6748e78cd4ac18bccc43505fcdc3792c73322b99')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-
-  cp "${srcdir}/stack.yaml" .
 
   stack update
   stack setup

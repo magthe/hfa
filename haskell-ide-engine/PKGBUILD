@@ -3,7 +3,7 @@
 _pkgname=haskell-ide-engine
 _stack_yaml_file=stack-8.6.3.yaml
 pkgname=${_pkgname}-git
-pkgver=r2325.ce022201
+pkgver=r2710.ffcb0fc9
 pkgrel=1
 pkgdesc="The engine for Haskell ide-integration. Not an IDE."
 arch=('x86_64')
