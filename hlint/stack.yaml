@@ -1,9 +1,10 @@
-resolver: lts-13.19
+resolver: lts-13.26
 
 packages:
   - '.'
 
 extra-deps:
+  - ghc-lib-parser-8.8.0.20190424
   - haskell-src-exts-1.21.0
 
 flags: {}
