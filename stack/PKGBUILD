@@ -2,8 +2,10 @@
 
 _stackver=v2.1.1
 _stackname=stack-2.1.1-linux-x86_64-static
+_ghorg=commercialhaskell
+_commit=388582c
 pkgname=stack
-pkgver=2.1.1
+pkgver=2.1.1.1
 pkgrel=100
 pkgdesc="The Haskell Tool Stack - the binary"
 arch=('x86_64')
@@ -12,15 +14,15 @@ license=('BSD3')
 makedepends=('git' 'unzip')
 depends=('ncurses5-compat-libs')
 options=('strip' 'staticlibs')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/commercialhaskell/stack/archive/${_stackver}.tar.gz"
-        "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
+source=("${pkgname}-${pkgver}.tar.gz::https://api.github.com/repos/${_ghorg}/${pkgname}/tarball/${_commit}"
+        "https://github.com/${_ghorg}/${pkgname}/releases/download/${_stackver}/${_stackname}.tar.gz"
        )
-sha256sums=('10c0119456748b189724ee42dea093c324d101487c3d75d57eb625675bb57424'
+sha256sums=('27de126afd7a8d35da9ea86acdcc36e29744ea80e8cb85bd400308adc4a50110'
             'fffb6996312be9c45227aea2fbde4b0ed71c9e9cb52aeefb78f585e3ddd14e9f')
 
 prepare() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${_ghorg}-${pkgname}-${_commit}"
 
   stack update
   stack setup
@@ -28,7 +30,7 @@ prepare() {
 
 build() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${_ghorg}-${pkgname}-${_commit}"
 
   stack --local-bin-path stack-bins install
 }
@@ -39,7 +41,7 @@ check() {
 
 package() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${_ghorg}-${pkgname}-${_commit}"
 
   install -d -m755 "${pkgdir}/usr/bin"
   install -m755 stack-bins/stack "${pkgdir}/usr/bin/stack"
