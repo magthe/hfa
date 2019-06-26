@@ -1,8 +1,0 @@
-resolver: lts-13.6
-
-packages:
-  - '.'
-
-extra-deps:
-  - haskell-src-exts-1.21.0
-  - monad-dijkstra-0.1.1.2
