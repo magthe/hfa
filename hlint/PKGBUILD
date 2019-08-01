@@ -2,12 +2,12 @@
 
 pkgname=hlint
 pkgver=2.2
-pkgrel=100
+pkgrel=101
 pkgdesc="Source code suggestions"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('BSD3')
-makedepends=('cabal-install' 'stack')
+makedepends=('stack')
 depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
@@ -18,7 +18,7 @@ sha256sums=('9d8a6379901997a60cd6fc598b12a7d5ec889196b0958eaeaeddca6b19d14124'
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  ln -s "${srcdir}/stack.yaml"
+  ln -f -s "${srcdir}/stack.yaml"
   stack update
   stack setup
 }
@@ -30,11 +30,11 @@ build() {
   stack \
         exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
   stack \
-        exec --no-ghc-package-path cabal -- configure \
-        $(cat db-paths) \
-        --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+    runhaskell --no-ghc-package-path -- Setup.hs configure \
+    $(cat db-paths) \
+    --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
   stack \
-        exec --no-ghc-package-path cabal -- build
+    runhaskell --no-ghc-package-path -- Setup.hs build
 }
 
 check() {
@@ -45,7 +45,7 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   stack \
-        exec --no-ghc-package-path cabal -- copy \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
         --destdir="${pkgdir}"
 
   rm -fr "${pkgdir}/usr/lib"
