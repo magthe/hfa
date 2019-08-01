@@ -1,7 +1,5 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
-_stackver=v2.1.1
-_stackname=stack-2.1.1-linux-x86_64-static
 pkgname=cabal-install
 pkgver=2.4.1.0
 pkgrel=101
@@ -9,14 +7,12 @@ pkgdesc="The command-line interface for Cabal and Hackage."
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('BSD3')
-makedepends=('ncurses5-compat-libs')
+makedepends=('stack')
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "https://github.com/commercialhaskell/stack/releases/download/${_stackver}/${_stackname}.tar.gz"
         "stack.yaml"
        )
 sha256sums=('69bcb2b54a064982412e1587c3c5c1b4fada3344b41b568aab25730034cb21ad'
-            'fffb6996312be9c45227aea2fbde4b0ed71c9e9cb52aeefb78f585e3ddd14e9f'
             '531a4382af9047f9bda0f5bb26adfe1c95f4a461a508995e4d2a01d7a0cb7e88')
 
 prepare() {
@@ -32,15 +28,15 @@ build() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  stack build
+  stack build --dependencies-only
   stack \
         exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
   stack \
-        exec --no-ghc-package-path cabal -- configure \
+        runhaskell --no-ghc-package-path -- Setup.hs configure \
         $(cat db-paths) \
         --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
   stack \
-        exec --no-ghc-package-path cabal -- build
+        runhaskell --no-ghc-package-path -- Setup.hs build
 }
 
 check() {
@@ -52,7 +48,7 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   stack \
-        exec --no-ghc-package-path cabal -- copy \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
         --destdir="${pkgdir}"
 
   chmod a+r "${pkgdir}/usr/share/man/man1/cabal.1"
