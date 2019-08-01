@@ -2,12 +2,12 @@
 
 pkgname=mega-sdist
 pkgver=0.4.0.0
-pkgrel=100
+pkgrel=101
 pkgdesc="Handles uploading to Hackage from mega repos"
 arch=('x86_64')
 url="https://github.com/snoyberg/${_pkgname}.git"
 license=('custom:BSD3')
-makedepends=('cabal-install' 'git' 'stack')
+makedepends=('git' 'stack')
 depends=()
 options=('strip' 'staticlibs')
 source=("https://github.com/snoyberg/mega-sdist/archive/${pkgname}-${pkgver}.tar.gz"
@@ -28,11 +28,11 @@ build() {
   stack \
         exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
   stack \
-        exec --no-ghc-package-path cabal -- v1-configure \
+        runhaskell --no-ghc-package-path -- Setup.hs configure \
         $(cat db-paths) \
         --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
   stack \
-        exec --no-ghc-package-path cabal -- v1-build
+        runhaskell --no-ghc-package-path -- Setup.hs build
 }
 
 check() {
@@ -43,7 +43,7 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgname}-${pkgver}"
 
   stack \
-        exec --no-ghc-package-path cabal -- v1-copy \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
         --destdir="${pkgdir}"
 
   rm -fr "${pkgdir}/usr/lib"
