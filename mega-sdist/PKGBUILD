@@ -1,8 +1,8 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=mega-sdist
-pkgver=0.4.0.0
-pkgrel=101
+pkgver=0.4.0.1
+pkgrel=100
 pkgdesc="Handles uploading to Hackage from mega repos"
 arch=('x86_64')
 url="https://github.com/snoyberg/${_pkgname}.git"
@@ -12,7 +12,7 @@ depends=()
 options=('strip' 'staticlibs')
 source=("https://github.com/snoyberg/mega-sdist/archive/${pkgname}-${pkgver}.tar.gz"
        )
-sha256sums=('20c8779ca8d2422ac56b2439a8fd4b3b3b16885cf38fe6eebb4618f56ff66bb8')
+sha256sums=('5bc65708d73e7aee456bab55cdf5bc9b1aa60d7491d11eb32bf119342bb0dc2a')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgname}-${pkgver}"
