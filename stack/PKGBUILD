@@ -32,7 +32,15 @@ build() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
   cd "${srcdir}/${_ghorg}-${pkgname}-${_commit}"
 
-  stack --local-bin-path stack-bins install
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs configure \
+    $(cat db-paths) \
+    --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs build
 }
 
 check() {
@@ -43,11 +51,11 @@ package() {
   export PATH="${srcdir}/${_stackname}:${PATH}"
   cd "${srcdir}/${_ghorg}-${pkgname}-${_commit}"
 
-  install -d -m755 "${pkgdir}/usr/bin"
-  install -m755 stack-bins/stack "${pkgdir}/usr/bin/stack"
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs copy \
+    --destdir="${pkgdir}"
 
-  install -d -m755 "${pkgdir}/usr/share/dock/${pkgname}"
-  install -m644 LICENSE "${pkgdir}/usr/share/dock/${pkgname}/LICENSE"
+  rm -fr "${pkgdir}/usr/lib"
 
   # Shell completion?
   # stack --bash-completion-script /usr/bin/stack
