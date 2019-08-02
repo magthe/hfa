@@ -7,7 +7,7 @@ pkgdesc="Pandoc filter for cross-references"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('GPL2')
-makedepends=('cabal-install' 'stack' 'unzip')
+makedepends=('stack' 'unzip')
 depends=('pandoc')
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
@@ -30,11 +30,11 @@ build() {
   stack \
         exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
   stack \
-        exec --no-ghc-package-path cabal -- configure \
+        runhaskell --no-ghc-package-path -- Setup.hs configure \
         $(cat db-paths) \
         --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
   stack \
-        exec --no-ghc-package-path cabal -- build
+        runhaskell --no-ghc-package-path -- Setup.hs build
 }
 
 check() {
@@ -45,7 +45,7 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   stack \
-        exec --no-ghc-package-path cabal -- copy \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
         --destdir="${pkgdir}"
 
   rm -fr "${pkgdir}/usr/lib"
