@@ -6,13 +6,13 @@ _ghorg=commercialhaskell
 _commit=65d729e
 pkgname=stack
 pkgver=2.1.3.1
-pkgrel=100
+pkgrel=101
 pkgdesc="The Haskell Tool Stack - the binary"
 arch=('x86_64')
 url='http://www.haskell.org/cabal/'
 license=('BSD3')
-makedepends=('git' 'unzip')
-depends=('ncurses5-compat-libs')
+makedepends=('unzip')
+depends=('git' 'ncurses5-compat-libs')
 options=('strip' 'staticlibs')
 source=("${pkgname}-${pkgver}.tar.gz::https://api.github.com/repos/${_ghorg}/${pkgname}/tarball/${_commit}"
         "https://github.com/${_ghorg}/${pkgname}/releases/download/${_stackver}/${_stackname}.tar.gz"
