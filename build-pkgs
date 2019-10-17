@@ -46,4 +46,4 @@ fi
 docker run -i -t -v=${work_dir}:/hfa -u hfa --env-file /etc/environment \
     -v /home/magnus/Dropbox/archrepo:/mtrepo \
     ${image_name}:latest \
-    ${docker_cmd=}
+    ${docker_cmd}
