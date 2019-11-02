@@ -1,0 +1,12 @@
+resolver: lts-14.10
+
+packages:
+  - '.'
+
+extra-deps:
+  - aeson-yaml-1.0.2.0
+  - dhall-1.27.0
+
+flags: {}
+
+extra-package-dbs: []

@@ -1,0 +1,52 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=dhall-json
+pkgver=1.5.0
+pkgrel=100
+pkgdesc="Convert between Dhall and JSON or YAML"
+arch=('x86_64')
+url='https://dhall-lang.org/'
+license=('BSD3')
+makedepends=('stack')
+depends=()
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+       "stack.yaml")
+sha256sums=('4dbbf809376f8097d6f87abd0e96dbe770b0f7396da15ff092cdf44566b822f7'
+            '98deef5690e85a502b2560a2f8820b86566bd8fd2e68d31f898448d764cefe39')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  ln -f -s "${srcdir}/stack.yaml"
+  stack update
+  stack setup
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs configure \
+    $(cat db-paths) \
+    --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}
