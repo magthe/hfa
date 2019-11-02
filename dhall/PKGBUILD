@@ -1,0 +1,52 @@
+# Maintainer: Magnus Therning <magnus@therning.org>
+
+pkgname=dhall
+pkgver=1.27.0
+pkgrel=100
+pkgdesc="A configuration language guaranteed to terminate"
+arch=('x86_64')
+url='https://dhall-lang.org/'
+license=('BSD3')
+makedepends=('stack')
+depends=()
+options=('strip' 'staticlibs')
+source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+       "stack.yaml")
+sha256sums=('e189fecd9ea22153252609a4d7c5cc4d61f2c36326b53758b61e5a851e701712'
+            'fc6200b0c93d2a3a3af8bc09c3d0249ac320724d3f4be8c9977ce1a643e6336a')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  ln -f -s "${srcdir}/stack.yaml"
+  stack update
+  stack setup
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack build --dependencies-only
+  stack \
+        exec ghc-pkg -- list | grep pkgdb | awk '{print "--package-db=" $0}' > db-paths
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs configure \
+    $(cat db-paths) \
+    --prefix=/usr --docdir="/usr/share/doc/${pkgname}"
+  stack \
+    runhaskell --no-ghc-package-path -- Setup.hs build
+}
+
+check() {
+  true
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  stack \
+        runhaskell --no-ghc-package-path -- Setup.hs copy \
+        --destdir="${pkgdir}"
+
+  rm -fr "${pkgdir}/usr/lib"
+}
