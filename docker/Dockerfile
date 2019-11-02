@@ -12,6 +12,7 @@ RUN   true \
           base-devel \
           sudo \
           bind-tools \
+          tmux \
     && rm /mtrepo/mtrepo.db \
     && true
 
