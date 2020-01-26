@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=pandoc
-pkgver=2.7.3
+pkgver=2.9.1.1
 pkgrel=100
 pkgdesc="Conversion between markup formats"
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('stack' 'unzip' 'git')
 depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('a877203379ec5179716d6999f76352229d7f40f5bec70dbfa48c140848cef236')
+sha256sums=('9d21c5efe2074f9b3097a20e0798de9d8b89a86a1ce04a307f476c7b4aa3816d')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"

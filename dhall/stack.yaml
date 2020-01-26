@@ -1,10 +1,10 @@
-resolver: lts-14.10
+resolver: lts-14.21
 
 packages:
   - '.'
 
 extra-deps:
-  - aeson-yaml-1.0.2.0
+  - prettyprinter-1.5.1
 
 flags: {}
 

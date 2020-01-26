@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=dhall
-pkgver=1.27.0
+pkgver=1.29.0
 pkgrel=100
 pkgdesc="A configuration language guaranteed to terminate"
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
        "stack.yaml")
-sha256sums=('e189fecd9ea22153252609a4d7c5cc4d61f2c36326b53758b61e5a851e701712'
-            'fc6200b0c93d2a3a3af8bc09c3d0249ac320724d3f4be8c9977ce1a643e6336a')
+sha256sums=('c73e59717ff15707c77f3ff582f5adf68fc7abc68dbf70aa77ce65333637e7f6'
+            '002eed91dee2638646cb0dba3d5a776f83df0cae9b70f59abd3f3f644c3adfbb')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"

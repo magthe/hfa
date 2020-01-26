@@ -1,7 +1,7 @@
 # Maintainer: Magnus Therning <magnus@therning.org>
 
 pkgname=dhall-json
-pkgver=1.5.0
+pkgver=1.6.1
 pkgrel=100
 pkgdesc="Convert between Dhall and JSON or YAML"
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=()
 options=('strip' 'staticlibs')
 source=("http://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
        "stack.yaml")
-sha256sums=('4dbbf809376f8097d6f87abd0e96dbe770b0f7396da15ff092cdf44566b822f7'
-            '98deef5690e85a502b2560a2f8820b86566bd8fd2e68d31f898448d764cefe39')
+sha256sums=('3ce9b0a9d3a946beb021bb42589426ceb4c44cf5f104e5bdf120659ccb5109c9'
+            '33ca8b3c8f06f2bec1ca1f935993fd23c3f6353cfc9001e2324f3ebe2173c660')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
